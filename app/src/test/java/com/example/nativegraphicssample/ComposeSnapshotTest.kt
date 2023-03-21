@@ -2,25 +2,16 @@ package com.example.nativegraphicssample
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.asAndroidBitmap
-import androidx.compose.ui.layout.boundsInParent
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.core.graphics.applyCanvas
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Before
 import org.junit.Rule
@@ -30,9 +21,7 @@ import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.GraphicsMode
 import org.robolectric.shadows.ShadowDisplay
 import org.robolectric.shadows.ShadowDisplayManager
-import java.io.File
 import java.io.FileOutputStream
-import kotlin.math.roundToInt
 
 class ComposeSnapshotTest : BaseComposeRobolectricTest() {
 
@@ -71,49 +60,6 @@ class ComposeSnapshotTest : BaseComposeRobolectricTest() {
                 )
             }
         }
-    }
-}
-
-class Snapshot(private val testName: String) {
-
-    @Composable
-    fun SnapShotWrapper(
-        content: @Composable () -> Unit
-    ) {
-        val view = LocalView.current
-
-        var capturingViewBounds by remember { mutableStateOf<Rect?>(null) }
-
-        Box(
-            modifier = Modifier.fillMaxSize().onGloballyPositioned {
-                capturingViewBounds = it.boundsInParent()
-            }
-        ) { content() }
-
-        capturingViewBounds?.let {
-            val bounds = it
-            val image = Bitmap.createBitmap(
-                bounds.width.roundToInt(), bounds.height.roundToInt(),
-                Bitmap.Config.ARGB_8888
-            ).applyCanvas {
-                translate(-bounds.left, -bounds.top)
-                view.draw(this)
-            }
-            val path = System.getProperty("user.dir")
-
-            File("$path/src/test/snapshots/images", "${testName}-screenshot.png")
-                .writeBitmap(image, Bitmap.CompressFormat.PNG, 100)
-
-            println("Saved file at $path")
-        }
-
-    }
-}
-
-private fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int) {
-    outputStream().use { out ->
-        bitmap.compress(format, quality, out)
-        out.flush()
     }
 }
 

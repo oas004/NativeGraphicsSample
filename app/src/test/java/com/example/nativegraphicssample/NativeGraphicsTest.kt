@@ -26,6 +26,7 @@ class NativeGraphicsTest : BaseComposeRobolectricTest() {
                 Greeting("Hello!")
             }
         }
+
         // This would be ideal, but it does not work for some reason.
         composeTestRule.onRoot().captureToImage()
         composeTestRule.onRoot().printToLog("SCREEN NODE TREE")
