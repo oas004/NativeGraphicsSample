@@ -7,7 +7,9 @@ import androidx.compose.ui.test.printToLog
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
+import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import org.robolectric.shadows.ShadowPixelCopy
 
 class NativeGraphicsTest : BaseComposeRobolectricTest() {
 
@@ -19,6 +21,7 @@ class NativeGraphicsTest : BaseComposeRobolectricTest() {
 
 
     @GraphicsMode(GraphicsMode.Mode.NATIVE)
+    @Config(shadows = [ShadowPixelCopy::class], minSdk = 26)
     @Test
     fun testNativeGraphicsApproach1() {
         composeTestRule.apply {
