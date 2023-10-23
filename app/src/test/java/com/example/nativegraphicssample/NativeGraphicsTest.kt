@@ -19,8 +19,10 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.ViewRootForTest
 import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.graphics.HardwareRendererCompat
@@ -54,7 +56,7 @@ class NativeGraphicsTest : BaseComposeRobolectricTest() {
 
         // This would be ideal, but it does not work for some reason.
         composeTestRule.onRoot().captureToImage()
-        composeTestRule.onRoot().printToLog("SCREEN NODE TREE")
+        //composeTestRule.onRoot().printToLog("SCREEN NODE TREE")
     }
 
 }
