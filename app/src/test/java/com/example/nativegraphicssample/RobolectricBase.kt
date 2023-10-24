@@ -6,11 +6,13 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLog
+import org.robolectric.shadows.ShadowPixelCopy
 
 @Config(
     instrumentedPackages = [
         "androidx.loader.content"
-    ]
+    ],
+    shadows = [ShadowPixelCopy::class], minSdk = 26
 )
 @RunWith(RobolectricTestRunner::class)
 abstract class BaseComposeRobolectricTest: Robolectric() {

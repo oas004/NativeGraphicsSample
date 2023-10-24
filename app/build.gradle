@@ -74,7 +74,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
     // https://mvnrepository.com/artifact/org.robolectric/robolectric
-    testImplementation("org.robolectric:robolectric:4.10-alpha-1")
+    testImplementation("org.robolectric:robolectric:4.11-beta-2")
 
     testImplementation("com.github.QuickBirdEng.kotlin-snapshot-testing:snapshot-jvm:v1.0.2")
     testImplementation("com.github.QuickBirdEng.kotlin-snapshot-testing:snapshot-android:v1.0.2")
